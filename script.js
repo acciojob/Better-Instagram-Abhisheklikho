@@ -1,35 +1,58 @@
 const images = document.querySelectorAll('.image');
 
-let currentDrag;
+let dragSrcEl = null;
 
-function dragStart() {
-  currentDrag = this;
+function handleDragStart(e) {
+  this.classList.add('selected');
+  dragSrcEl = this;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', this.innerHTML);
 }
 
-function dragEnter(e) {
-  e.preventDefault();
-  this.classList.add('hovered');
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+
+  e.dataTransfer.dropEffect = 'move';
+
+  return false;
 }
 
-function dragLeave() {
-  this.classList.remove('hovered');
+function handleDragEnter(e) {
+  this.classList.add('over');
 }
 
-function dragDrop() {
-  this.classList.remove('hovered');
-  const temp = this.innerHTML;
-  this.innerHTML = currentDrag.innerHTML;
-  currentDrag.innerHTML = temp;
+function handleDragLeave(e) {
+  this.classList.remove('over');
 }
 
-function dragOver(e) {
-  e.preventDefault();
+function handleDrop(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+
+  if (dragSrcEl !== this) {
+    dragSrcEl.innerHTML = this.innerHTML;
+    this.innerHTML = e.dataTransfer.getData('text/html');
+  }
+
+  return false;
 }
 
-images.forEach((image) => {
-  image.addEventListener('dragstart', dragStart);
-  image.addEventListener('dragenter', dragEnter);
-  image.addEventListener('dragleave', dragLeave);
-  image.addEventListener('drop', dragDrop);
-  image.addEventListener('dragover', dragOver);
+function handleDragEnd(e) {
+  this.classList.remove('selected');
+
+  images.forEach(function (image) {
+    image.classList.remove('over');
+  });
+}
+
+images.forEach(function (image) {
+  image.addEventListener('dragstart', handleDragStart, false);
+  image.addEventListener('dragenter', handleDragEnter, false);
+  image.addEventListener('dragover', handleDragOver, false);
+  image.addEventListener('dragleave', handleDragLeave, false);
+  image.addEventListener('drop', handleDrop, false);
+  image.addEventListener('dragend', handleDragEnd, false);
 });

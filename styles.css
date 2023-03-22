@@ -1,40 +1,40 @@
 .image:nth-child(1){
-  background-image: url("https://picsum.photos/id/237/200/300");
+  background-image: url("https://picsum.photos/id/237/200/300?v=1");
   height: 300px;
   width: 200px;
   margin: 20px;
 }
 
 .image:nth-child(2){
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
+  background-image: url("https://picsum.photos/seed/picsum/200/300?v=2");
   height: 300px;
   width: 200px;
   margin: 20px;
 }
 
 .image:nth-child(3){
-  background-image: url("https://picsum.photos/200/300?grayscale");
+  background-image: url("https://picsum.photos/200/300?grayscale?v=3");
   height: 300px;
   width: 200px;
   margin: 20px;
 }
 
 .image:nth-child(4){
-  background-image: url("https://picsum.photos/200/300/");
+  background-image: url("https://picsum.photos/200/300/?v=4");
   height: 300px;
   width: 200px;
   margin: 20px;
 }
 
 .image:nth-child(5){
-  background-image: url("https://picsum.photos/200/300.jpg");
+  background-image: url("https://picsum.photos/200/300.jpg?v=5");
   height: 300px;
   width: 200px;
   margin: 20px;
 }
 
 .image:nth-child(6){
-  background-image: url("https://picsum.photos/id/102/200/300");
+  background-image: url("https://picsum.photos/id/102/200/300?v=6");
   height: 300px;
   width: 200px;
   margin: 20px;
