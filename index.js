@@ -1,35 +1,21 @@
-const images = document.querySelectorAll('.image');
+// This file is not to be modified. Please ignore this.
+// We will understand all of this later in the course.
+// DO NOT MODIFY THIS FILE
 
-let currentDrag;
+const express = require('express');
+const path = require('path');
 
-function dragStart() {
-  currentDrag = this;
-}
+const app = express();
 
-function dragEnter(e) {
-  e.preventDefault();
-  this.classList.add('hovered');
-}
+app.use(express.static(__dirname))
 
-function dragLeave() {
-  this.classList.remove('hovered');
-}
-
-function dragDrop() {
-  this.classList.remove('hovered');
-  const temp = this.innerHTML;
-  this.innerHTML = currentDrag.innerHTML;
-  currentDrag.innerHTML = temp;
-}
-
-function dragOver(e) {
-  e.preventDefault();
-}
-
-images.forEach((image) => {
-  image.addEventListener('dragstart', dragStart);
-  image.addEventListener('dragenter', dragEnter);
-  image.addEventListener('dragleave', dragLeave);
-  image.addEventListener('drop', dragDrop);
-  image.addEventListener('dragover', dragOver);
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/main.html'));
 });
+//your code here
+app.post('/add', (req, res) => {
+  const {a,b} = req.body;
+  res.status(200).send(a+b);
+  // res.sendFile(path.join(__dirname + '/main.html'));
+});
+module.exports = app;

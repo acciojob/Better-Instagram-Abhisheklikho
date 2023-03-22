@@ -1,34 +1,35 @@
-//your code here
-// JavaScript for drag and drop functionality
+const images = document.querySelectorAll('.image');
 
-const parent = document.getElementById('parent'); // Get the parent container
-const images = document.querySelectorAll('.image'); // Get all the image divs
+let currentDrag;
 
-let dragged; // Keep track of the dragged element
+function dragStart() {
+  currentDrag = this;
+}
 
-// Add event listeners to each image div to handle drag and drop
-images.forEach(image => {
-  // When dragging starts
-  image.addEventListener('dragstart', (event) => {
-    dragged = event.target; // Store the dragged element
-    event.dataTransfer.setData('text/plain', null); // Set data transfer to allow drag
-  });
+function dragEnter(e) {
+  e.preventDefault();
+  this.classList.add('hovered');
+}
 
-  // When the element is being dragged over a valid drop target
-  image.addEventListener('dragover', (event) => {
-    event.preventDefault(); // Prevent the default action
-  });
+function dragLeave() {
+  this.classList.remove('hovered');
+}
 
-  // When the dragged element is dropped on a valid drop target
-  image.addEventListener('drop', (event) => {
-    event.preventDefault(); // Prevent the default action
-    const target = event.target; // Get the drop target
+function dragDrop() {
+  this.classList.remove('hovered');
+  const temp = this.innerHTML;
+  this.innerHTML = currentDrag.innerHTML;
+  currentDrag.innerHTML = temp;
+}
 
-    // If the target is not the dragged element and it is a child of the parent container
-    if (target !== dragged && parent.contains(target)) {
-      // Swap the order of the elements
-      parent.insertBefore(dragged, target.nextSibling);
-    }
-  });
+function dragOver(e) {
+  e.preventDefault();
+}
+
+images.forEach((image) => {
+  image.addEventListener('dragstart', dragStart);
+  image.addEventListener('dragenter', dragEnter);
+  image.addEventListener('dragleave', dragLeave);
+  image.addEventListener('drop', dragDrop);
+  image.addEventListener('dragover', dragOver);
 });
-
